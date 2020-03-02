@@ -39,17 +39,19 @@ public class QuestionController {
             field.setAccessible(true);
             if (field.getType().getName().equals("java.util.List")) {
                 List<String> values = (List<String>) field.get(questions);
-                for (int i = 0; i < values.size(); i++) {
-                    if (field.getName().equals("q9") || field.getName().equals("q10")) {
-                        Field field1 = questionsJson.getClass().getDeclaredField(field.getName() + "_" + (i + 1));
-                        field1.setAccessible(true);
-                        field1.set(questionsJson, values.get(i));
-                        field1.setAccessible(false);
-                    } else {
-                        Field field1 = questionsJson.getClass().getDeclaredField(field.getName() + "_" + values.get(i));
-                        field1.setAccessible(true);
-                        field1.set(questionsJson, "1");
-                        field1.setAccessible(false);
+                if (values != null) {
+                    for (int i = 0; i < values.size(); i++) {
+                        if (field.getName().equals("q9") || field.getName().equals("q10")) {
+                            Field field1 = questionsJson.getClass().getDeclaredField(field.getName() + "_" + (i + 1));
+                            field1.setAccessible(true);
+                            field1.set(questionsJson, values.get(i));
+                            field1.setAccessible(false);
+                        } else {
+                            Field field1 = questionsJson.getClass().getDeclaredField(field.getName() + "_" + values.get(i));
+                            field1.setAccessible(true);
+                            field1.set(questionsJson, "1");
+                            field1.setAccessible(false);
+                        }
                     }
                 }
             } else {
