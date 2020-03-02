@@ -33,7 +33,7 @@ public class GenerateStudentsController {
         for (int i = 0; i < count; i++) {
             Student student = new Student();
             student.setLogin(pref + "_" + (i + n));
-            student.setPassword(UUID.randomUUID().toString().substring(0, 8));
+            student.setPassword(new BCryptPasswordEncoder().encode(UUID.randomUUID().toString().substring(0, 8)));
             student.setAlreadyCompleted(false);
             list.add(student);
 
@@ -41,7 +41,7 @@ public class GenerateStudentsController {
                     .append("login: ")
                     .append(student.getLogin())
                     .append(" Password: ")
-                    .append(new BCryptPasswordEncoder().encode(student.getPassword()))
+                    .append(student.getPassword())
                     .append("<br>");
         }
 
