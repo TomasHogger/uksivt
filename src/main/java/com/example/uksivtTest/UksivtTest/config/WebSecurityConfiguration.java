@@ -38,6 +38,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/get/excel/doc").permitAll()
+                .antMatchers("/generate/**").permitAll()
                 .antMatchers("/**").fullyAuthenticated()
                 .and().csrf().disable().formLogin()
                 .usernameParameter("login")

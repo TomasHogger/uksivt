@@ -4,9 +4,13 @@ import com.example.uksivtTest.UksivtTest.model.Student;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface StudentRepository extends CrudRepository<Student, Integer> {
 
     Student findByLogin(String login);
+
+    List<Student> findByLoginLike(String login);
 
 }
