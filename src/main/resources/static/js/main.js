@@ -2,17 +2,14 @@ $(function(){
     $('.radio_with_text').click(function (event) {
         if ($(event.target).attr("name") == "q17") {
             var input_text = document.querySelector('[name*=' +  $(event.target).attr("name") + "_1");
-            input_text.setAttribute('required', 'true');
-            input_text.removeAttribute('disabled');
+            input_text_enable(input_text);
             input_text = document.querySelector('[name*=' +  $(event.target).attr("name") + "_2");
-            input_text.setAttribute('required', 'true');
-            input_text.removeAttribute('disabled');
+            input_text_enable(input_text);
             return;
         }
         var input_textes = document.querySelectorAll('[name*=' +  $(event.target).attr("name") + "_text]");
         input_textes.forEach(function(input_text) {
-            input_text.setAttribute('required', 'true');
-            input_text.removeAttribute('disabled');
+                input_text_enable(input_text);
         });
     })
 
@@ -20,21 +17,15 @@ $(function(){
         if (!$(event.target).attr("class").includes('radio_with_text')) {
             if ($(event.target).attr("name") == "q17") {
                 var input_text = document.querySelector('[name*=' +  $(event.target).attr("name") + "_1");
-                input_text.setAttribute('required', 'false');
-                input_text.setAttribute('disabled', 'disabled');
-                input_text.value = '';
+                input_text_disabled(input_text);
                 input_text = document.querySelector('[name*=' +  $(event.target).attr("name") + "_2");
-                input_text.setAttribute('required', 'false');
-                input_text.setAttribute('disabled', 'disabled');
-                input_text.value = '';
+                input_text_disabled(input_text);
                 return;
             }
 
             var input_textes = document.querySelectorAll('[name*=' +  $(event.target).attr("name") + "_text]");
             input_textes.forEach(function(input_text) {
-                input_text.setAttribute('required', 'false');
-                input_text.setAttribute('disabled', 'disabled');
-                input_text.value = '';
+                input_text_disabled(input_text);
             });
         }
     })
@@ -104,6 +95,17 @@ $(function(){
         return false
     })
 });
+
+function input_text_enable(input_text) {
+    input_text.setAttribute('required', 'true');
+    input_text.removeAttribute('disabled');
+}
+
+function input_text_disabled(input_text) {
+    input_text.setAttribute('required', 'false');
+    input_text.setAttribute('disabled', 'disabled');
+    input_text.value = '';
+}
 
 
 function getFormData($form){
