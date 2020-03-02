@@ -63,8 +63,9 @@ public class ExcelController {
 
                 int rowInt = 1;
                 for (Student student : students) {
-                    QuestionsDB questionsDB = questionsDBRepository.findByStudentId(student.getId());
-                    if (questionsDB != null) {
+                    List<QuestionsDB> questionsDBS = questionsDBRepository.findByStudentId(student.getId());
+                    if (questionsDBS != null && !questionsDBS.isEmpty()) {
+                        QuestionsDB questionsDB = questionsDBS.get(0);
                         row = sheet.createRow(rowInt);
                         QuestionsJson questionsJson = objectMapper.readValue(questionsDB.getJson(), QuestionsJson.class);
 
