@@ -33,7 +33,8 @@ public class GenerateStudentsController {
         for (int i = 0; i < count; i++) {
             Student student = new Student();
             student.setLogin(pref + "_" + (i + n));
-            String password = UUID.randomUUID().toString().substring(0, 8);
+//            String password = UUID.randomUUID().toString().substring(0, 8);
+            String password = "12345";
             student.setPassword(new BCryptPasswordEncoder().encode(password));
             student.setAlreadyCompleted(false);
             list.add(student);
