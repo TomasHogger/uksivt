@@ -3,6 +3,7 @@ package com.example.uksivtTest.UksivtTest.controller;
 import com.example.uksivtTest.UksivtTest.model.Student;
 import com.example.uksivtTest.UksivtTest.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +41,7 @@ public class GenerateStudentsController {
                     .append("login: ")
                     .append(student.getLogin())
                     .append(" Password: ")
-                    .append(student.getPassword())
+                    .append(new BCryptPasswordEncoder().encode(student.getPassword()))
                     .append("<br>");
         }
 
