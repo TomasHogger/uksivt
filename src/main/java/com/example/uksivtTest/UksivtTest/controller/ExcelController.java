@@ -36,6 +36,8 @@ public class ExcelController {
         try {
             File file = new File("stat.xls");
             file.createNewFile();
+
+            System.out.println(questionsDBRepository.findAll());
             try (FileOutputStream fileOutputStream = new FileOutputStream(file); Workbook book = new HSSFWorkbook()){
                 List<Student> students = new ArrayList<>();
                 studentService.findAll().forEach(students::add);
@@ -58,9 +60,6 @@ public class ExcelController {
                 for (Student student : students) {
                     row = sheet.createRow(rowInt);
                     QuestionsDB questionsDB = questionsDBRepository.findByStudentId(student.getId());
-
-                    System.out.println(student.getId());
-                    System.out.println(questionsDB);
                     QuestionsJson questionsJson = objectMapper.readValue(questionsDB.getJson(), QuestionsJson.class);
                     for (int i = 0; i < fields.length; i++) {
                         Cell cell = row.createCell(i);

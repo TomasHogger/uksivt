@@ -71,8 +71,6 @@ public class QuestionController {
         student.setAlreadyCompleted(true);
         studentService.save(student);
 
-        System.out.println(questionsDB.getJson());
-
         return "./login";
     }
 
