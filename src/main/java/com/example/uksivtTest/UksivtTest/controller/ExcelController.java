@@ -5,6 +5,7 @@ import com.example.uksivtTest.UksivtTest.model.QuestionsJson;
 import com.example.uksivtTest.UksivtTest.model.Student;
 import com.example.uksivtTest.UksivtTest.repository.QuestionsDBRepository;
 import com.example.uksivtTest.UksivtTest.service.StudentService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -13,8 +14,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -97,6 +97,18 @@ public class ExcelController {
         } catch (IOException ex) {
             throw new RuntimeException("IOError writing file to output stream");
         }
+    }
+
+
+    @GetMapping("/get_all")
+    public String getAllQuestions() throws JsonProcessingException {
+        return new ObjectMapper().writeValueAsString(questionsDBRepository.findAll());
+    }
+
+    @PostMapping
+    public String saveAll(@RequestBody List<QuestionsDB> list) {
+        questionsDBRepository.saveAll(list);
+        return "ok";
     }
 
 }
