@@ -58,6 +58,9 @@ public class ExcelController {
                 for (Student student : students) {
                     row = sheet.createRow(rowInt);
                     QuestionsDB questionsDB = questionsDBRepository.findByStudentId(student.getId());
+
+                    System.out.println(student.getId());
+                    System.out.println(questionsDB);
                     QuestionsJson questionsJson = objectMapper.readValue(questionsDB.getJson(), QuestionsJson.class);
                     for (int i = 0; i < fields.length; i++) {
                         Cell cell = row.createCell(i);
