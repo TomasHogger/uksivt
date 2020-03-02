@@ -98,17 +98,4 @@ public class ExcelController {
             throw new RuntimeException("IOError writing file to output stream");
         }
     }
-
-
-    @GetMapping("/get_all")
-    public String getAllQuestions() throws JsonProcessingException {
-        return new ObjectMapper().writeValueAsString(questionsDBRepository.findAll());
-    }
-
-    @PostMapping
-    public String saveAll(@RequestBody List<QuestionsDB> list) {
-        questionsDBRepository.saveAll(list);
-        return "ok";
-    }
-
 }
