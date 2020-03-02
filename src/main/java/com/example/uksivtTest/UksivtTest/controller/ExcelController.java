@@ -38,16 +38,21 @@ public class ExcelController {
             file.createNewFile();
 
             System.out.println(questionsDBRepository.findAll());
-            try (FileOutputStream fileOutputStream = new FileOutputStream(file); Workbook book = new HSSFWorkbook()){
+            try (FileOutputStream fileOutputStream = new FileOutputStream(file); Workbook book = new HSSFWorkbook()) {
                 List<Student> students = new ArrayList<>();
                 studentService.findAll().forEach(students::add);
 
                 Sheet sheet = book.createSheet("stat");
                 Row row = sheet.createRow(0);
 
+                {
+                    Cell cell = row.createCell(0);
+                    cell.setCellValue("login");
+                }
+
                 Field[] fields = QuestionsJson.class.getDeclaredFields();
                 for (int i = 0; i < fields.length; i++) {
-                    Cell cell = row.createCell(i);
+                    Cell cell = row.createCell(i + 1);
                     cell.setCellValue(fields[i].getName()
                             .replaceAll("q", "в")
                             .replaceAll("text", "др")
@@ -62,8 +67,14 @@ public class ExcelController {
                     if (questionsDB != null) {
                         row = sheet.createRow(rowInt);
                         QuestionsJson questionsJson = objectMapper.readValue(questionsDB.getJson(), QuestionsJson.class);
+
+                        {
+                            Cell cell = row.createCell(0);
+                            cell.setCellValue(student.getLogin());
+                        }
+
                         for (int i = 0; i < fields.length; i++) {
-                            Cell cell = row.createCell(i);
+                            Cell cell = row.createCell(i + 1);
                             fields[i].setAccessible(true);
                             cell.setCellValue((String) fields[i].get(questionsJson));
                             fields[i].setAccessible(false);
