@@ -25,7 +25,7 @@ public class GenerateStudentsController {
         int n = 0;
         if (alreadyExists != null && !alreadyExists.isEmpty()) {
             alreadyExists.sort((o1, o2) -> o1.getLogin().compareTo(o2.getPassword()));
-            n = Integer.parseInt(alreadyExists.get(alreadyExists.size() - 1).getLogin().split("_")[1]);
+            n = Integer.parseInt(alreadyExists.get(alreadyExists.size() - 1).getLogin().split("_")[1]) + 1;
         }
 
         List<Student> list = new ArrayList<>();
