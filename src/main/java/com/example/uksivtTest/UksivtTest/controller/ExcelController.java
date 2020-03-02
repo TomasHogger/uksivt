@@ -60,12 +60,14 @@ public class ExcelController {
                 for (Student student : students) {
                     row = sheet.createRow(rowInt);
                     QuestionsDB questionsDB = questionsDBRepository.findByStudentId(student.getId());
-                    QuestionsJson questionsJson = objectMapper.readValue(questionsDB.getJson(), QuestionsJson.class);
-                    for (int i = 0; i < fields.length; i++) {
-                        Cell cell = row.createCell(i);
-                        fields[i].setAccessible(true);
-                        cell.setCellValue((String) fields[i].get(questionsJson));
-                        fields[i].setAccessible(false);
+                    if (questionsDB != null) {
+                        QuestionsJson questionsJson = objectMapper.readValue(questionsDB.getJson(), QuestionsJson.class);
+                        for (int i = 0; i < fields.length; i++) {
+                            Cell cell = row.createCell(i);
+                            fields[i].setAccessible(true);
+                            cell.setCellValue((String) fields[i].get(questionsJson));
+                            fields[i].setAccessible(false);
+                        }
                     }
                 }
 
